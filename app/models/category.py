@@ -1,9 +1,12 @@
-from extension import db
+from app.extension import db
 
 class Category(db.Model):
     __tablename__ = "category"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True, nullable=False)
+
+    # relationship with Product
+    products = db.relationship('Product', backref='category', lazy=True)
 
     def to_dict(self):
         return {

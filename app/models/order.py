@@ -1,4 +1,4 @@
-from extension import db
+from app.extension import db
 
 class Order(db.Model):
     __tablename__ = "orders"
