@@ -82,7 +82,20 @@ def login():
                     "refresh_token": refresh_token,
                     "user_id": existing_user.to_dict()}), 200
 
-# auth profile code has not upated 
+# Get Current User profile route
+@auth_rt.route("/profile", methods=["GET"])
+@jwt_required()
+def profile():
+
+    # get user id from token
+    current_user_id = int(get_jwt_identity())
+
+    # find user in database
+    user = db.session.get(User, current_user_id)
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify({"user": user.to_dict()}), 200
 
 
     
